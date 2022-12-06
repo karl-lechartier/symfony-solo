@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Categorie;
 use App\Entity\Chaton;
+use App\Form\ChatonSupprimerType;
 use App\Form\ChatonType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -52,6 +53,36 @@ class ChatonsController extends AbstractController
 
         return $this->render("chatons/ajouter.html.twig", [
             'formulaire' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/chaton/supprimer/{id}", name="app_chatons_supprimer")
+     */
+    public function supprimer($id, ManagerRegistry $doctrine, Request $request): Response{
+
+        $chaton = $doctrine->getRepository(Chaton::class)->find($id);
+
+        if (!$chaton){
+            throw $this->createNotFoundException("Pas de catégorie avec l'id $id");
+        }
+
+        $form=$this->createForm(ChatonSupprimerType::class, $chaton);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
+
+            $em=$doctrine->getManager();
+            $em->remove($chaton);
+
+            $em->flush();
+
+            return $this->redirectToRoute("app_categories");
+        }
+
+        return $this->render("chatons/supprimer.html.twig",[
+            "chaton"=>$chaton,
+            "formulaire"=>$form->createView()
         ]);
     }
 }

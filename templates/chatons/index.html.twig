@@ -18,6 +18,8 @@
                     <div class="card-body">
                         <h2 class="card-title">{{ c.nom }}</h2>
                     </div>
+                    <a href="{{ path("app_chatons_supprimer", {"id": c.id}) }}" class="btn btn-danger">supprimer</a>
+
                 </div>
             </div>
         {% endfor %}
