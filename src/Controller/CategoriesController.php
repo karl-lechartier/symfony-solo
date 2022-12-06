@@ -104,13 +104,10 @@ class CategoriesController extends AbstractController
      * @Route("/categorie/supprimer/{id}", name="app_categories_supprimer")
      */
     public function supprimer($id, ManagerRegistry $doctrine, Request $request): Response{
-        //créer le formulaire sur le même principe que dans ajouter
-        //mais avec une catégorie existante
         $categorie = $doctrine->getRepository(Categorie::class)->find($id);
 
-        //je vais gérer le fait que l'id n'existe pas
         if (!$categorie){
-            throw $this->createNotFoundException("Pas de catégorie avec l'id $id") ;
+            throw $this->createNotFoundException("Pas de catégorie avec l'id $id");
         }
 
         $form=$this->createForm(CategorieSupprimerType::class, $categorie);
