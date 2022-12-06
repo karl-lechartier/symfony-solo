@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des chatons en BDD{% endblock %}
+
+{% block body %}
+    <h1>Gestion des chatons en BDD</h1>
+    <table class="table table-striped">
+        <tr>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th></th>
+        </tr>
+        {% for p in proprietaire %}
+            <tr>
+                <td>{{ p.nom }}</td>
+                <td>{{ p.prenom }}</td>
+                <td>
+                    <a href="{{ path("app_proprietaires_modifier", {"id": p.id}) }}" class="btn btn-primary">modifier</a>
+                    <a href="{{ path("app_proprietaires_supprimer", {"id": p.id}) }}" class="btn btn-danger">supprimer</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <a href="{{path("app_proprietaires_ajouter")}}" class="btn btn-success">Ajouter un propriétaire</a>
+{% endblock %}
