@@ -113,23 +113,14 @@ class CategoriesController extends AbstractController
             throw $this->createNotFoundException("Pas de catégorie avec l'id $id");
         }
 
-        //Si j'arrive là c'est qu'elle existe en BDD
-        //à partir de ça je crée le formulaire
         $form=$this->createForm(CategorieSupprimerType::class, $categorie);
 
-        //On gère le retour du formulaire tout de suite
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
-            //l'objet catégorie est rempli
-            //on va utiliser l'entity manager de doctrine
             $em=$doctrine->getManager();
-            //on lui dit qu'on supprimer la catégorie
             $em->remove($categorie);
 
-            //on génère l'appel SQL (update ici)
             $em->flush();
-
-            //on revient à l'accueil
             return $this->redirectToRoute("app_categories");
         }
 
