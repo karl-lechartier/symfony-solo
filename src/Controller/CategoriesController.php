@@ -110,7 +110,7 @@ class CategoriesController extends AbstractController
 
         //je vais gérer le fait que l'id n'existe pas
         if (!$categorie){
-            throw $this->createNotFoundException("Pas de catégorie avec l'id $id");
+            throw $this->createNotFoundException("Pas de catégorie avec l'id $id") ;
         }
 
         $form=$this->createForm(CategorieSupprimerType::class, $categorie);
