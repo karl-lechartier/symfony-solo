@@ -41,7 +41,7 @@ class Chaton
     private $Categorie;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Proprietaire::class)
+     * @ORM\ManyToMany(targetEntity=Proprietaire::class, inversedBy="chatons")
      */
     private $proprietaires;
 
@@ -104,14 +104,14 @@ class Chaton
     }
 
     /**
-     * @return Collection<int, proprietaire>
+     * @return Collection<int, Proprietaire>
      */
     public function getProprietaires(): Collection
     {
         return $this->proprietaires;
     }
 
-    public function addProprietaire(proprietaire $proprietaire): self
+    public function addProprietaire(Proprietaire $proprietaire): self
     {
         if (!$this->proprietaires->contains($proprietaire)) {
             $this->proprietaires[] = $proprietaire;
@@ -120,7 +120,7 @@ class Chaton
         return $this;
     }
 
-    public function removeProprietaire(proprietaire $proprietaire): self
+    public function removeProprietaire(Proprietaire $proprietaire): self
     {
         $this->proprietaires->removeElement($proprietaire);
 

@@ -17,6 +17,7 @@
                 <td>
                     <a href="{{ path("app_proprietaires_modifier", {"id": p.id}) }}" class="btn btn-primary">modifier</a>
                     <a href="{{ path("app_proprietaires_supprimer", {"id": p.id}) }}" class="btn btn-danger">supprimer</a>
+                    <a href="{{path("app_chatons_voir_proprietaires",{"idProprietaire":p.id})}}" class="btn btn-warning">chatons</a>
                 </td>
             </tr>
         {% endfor %}
